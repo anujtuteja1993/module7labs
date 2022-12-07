@@ -4,11 +4,11 @@ import { MoodContext } from "../context/moodContext";
 
 const Clockstart = () =>{
 
-    const { mood, setMood, sad, happy }= React.useContext(MoodContext);
+    const { mood }= React.useContext(MoodContext);
     const [date, setDate] = useState(new Date());
     //using Useffect to update the timer and clean up function to clear it every second. 
     useEffect(() => {
-        let timer = setTimeout(setDate(new Date(), 1000));
+        let timer = setTimeout(() => setDate(new Date()), 1000); //just watch this syntax to make sure it doesn't re-render too much
         return function cleanup(){
             clearInterval(timer);
         }

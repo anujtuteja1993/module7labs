@@ -36,20 +36,23 @@ const Posts = () => {
   }, []);
 
   const handleCreatePost = async () => {
+    let newPost = {
+      title: 'Post Title',
+      body: postContent,
+      userId: 1,
+    }
+
     try {
       setIsLoading(true);
       const response = await axios({
         method: 'post',
         url: `${POST_URL}`,
-        data: {
-          title: 'Post Title',
-          body: postContent,
-          userId: 1,
-        }
+        data: newPost
       });
 
       if ((200 <= response.status) && (response.status < 300)) {
         setIsLoading(false);
+        setPosts(posts.concat([newPost])) //this lets your UI update with the new post, even if its only temporary
         alert(`Post created successfully with id: ${response.data.id} `);
       } else {
         setIsLoading(false);
